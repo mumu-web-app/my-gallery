@@ -1,55 +1,73 @@
-/* 전체 설정 */
+/* 1. 기본 배경 및 폰트 설정 */
 body { 
     font-family: 'Pretendard', sans-serif; 
     background: #f9f9f9; 
     margin: 0; 
-    padding: 20px; 
+    padding: 0; 
     color: #333; 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; /* 모든 내용을 가로 중앙으로! */
 }
 
-/* 제목 부분 */
+/* 2. 제목(헤더) 중앙 정렬 및 여백 */
 header { 
     text-align: center; 
-    padding: 60px 0; 
-    width: 100%;
-    max-width: 1000px;
-    border-bottom: 1px solid #ddd;
+    padding: 60px 20px; 
+    background: white;
+    border-bottom: 1px solid #eee;
     margin-bottom: 40px;
 }
+h1 { font-size: 2.2rem; letter-spacing: 5px; margin: 0; color: #1a1a1a; }
 
-h1 { font-size: 2.5rem; letter-spacing: 4px; margin: 0; }
+/* 3. 메인 컨텐츠 중앙 정렬 */
+main { 
+    max-width: 1200px; /* 전체 너비 제한 */
+    margin: 0 auto;    /* 좌우 여백을 똑같이 나눠서 중앙으로! */
+    padding: 0 20px 100px 20px;
+}
 
-/* 갤러리 영역 */
-main { width: 100%; max-width: 1000px; } /* 최대 너비를 주어 중앙에 모이게 함 */
+/* 4. PC용 가로 배치 레이아웃 (노트북/데스크탑) */
+.section-group {
+    display: flex;
+    gap: 40px;         /* 좌우 칸 사이의 간격 */
+    margin-bottom: 60px;
+}
+.section-group > section {
+    flex: 1;           /* 왼쪽 오른쪽이 똑같은 넓이를 가짐 */
+}
 
-section { margin-bottom: 60px; width: 100%; }
-h2 { border-left: 6px solid #333; padding-left: 15px; margin-bottom: 25px; font-size: 1.5rem; }
+/* 5. 섹션 제목 디자인 */
+h2 { 
+    border-left: 5px solid #333; 
+    padding-left: 12px; 
+    margin-bottom: 25px; 
+    font-size: 1.4rem; 
+    background: rgba(0,0,0,0.02);
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
 
-/* 사진 격자 배치 (중앙 정렬됨) */
+/* 6. 사진 격자 디자인 */
 .gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
-    justify-content: center; /* 사진들도 중앙으로 모임 */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
 }
 
-/* 카드 디자인 */
 .card {
     background: white;
-    border-radius: 12px;
+    border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: 0.3s;
 }
-.card:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0,0,0,0.15); }
-.card img { width: 100%; height: 280px; object-fit: cover; display: block; }
+.card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+.card img { width: 100%; height: 250px; object-fit: cover; display: block; }
 
-/* 모바일 화면 대응 */
-@media (max-width: 600px) {
-    h1 { font-size: 1.8rem; }
-    body { padding: 15px; }
-    .gallery { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+/* 7. 휴대폰용 세로 배치 레이아웃 (반응형) */
+@media (max-width: 900px) {
+    .section-group {
+        flex-direction: column; /* 가로에서 세로로 변경 */
+        gap: 0;
+    }
+    h1 { font-size: 1.7rem; }
+    header { padding: 40px 20px; }
 }
