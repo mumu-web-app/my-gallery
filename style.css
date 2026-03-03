@@ -1,7 +1,7 @@
-/* 전체 배경: 은은한 한지 색상과 명조체 */
+/* 1. 기본 설정: 은은한 한지 배경 */
 body { 
-    font-family: 'Nanum Myeongjo', serif; 
-    background-color: #f1eadd; 
+    font-family: 'Gowun Batang', serif; 
+    background-color: #f1eadd; /* 한지 색상 */
     margin: 0; 
     padding: 0; 
     display: flex;
@@ -12,112 +12,131 @@ body {
 
 header { 
     text-align: center; 
-    padding: 70px 20px; 
+    padding: 80px 20px; 
     width: 100%;
-    background: rgba(255, 255, 255, 0.2); /* 한지색이 비치도록 살짝 투명하게 */
-    border-bottom: 1px solid #d3cabd;
+    background: rgba(255, 255, 255, 0.2);
 }
 
-h1 { font-size: 2.8rem; letter-spacing: 8px; margin: 0; color: #111; font-weight: 800; }
-.subtitle { font-size: 1.3rem; color: #444; margin-top: 15px; font-weight: 700; letter-spacing: 2px; }
+h1 { font-size: 3rem; letter-spacing: 10px; margin: 0; color: #111; font-weight: 800; }
 
+/* ★ 부제목 디자인: 크게 + 위아래 선 ★ */
+.subtitle-container {
+    margin-top: 30px;
+}
+.main-subtitle { 
+    font-size: 2.2rem; /* 훨씬 크게 */
+    color: #1a1a1a; 
+    font-weight: 700; 
+    letter-spacing: 8px; 
+    font-family: 'Nanum Myeongjo', serif;
+    border-top: 2px solid #333;    /* 위쪽 선 */
+    border-bottom: 2px solid #333; /* 아래쪽 선 */
+    display: inline-block;
+    padding: 15px 40px;
+    margin: 0;
+}
+
+/* 2. 메인 영역 */
 main { 
     width: 95%; 
-    max-width: 1300px; 
-    padding: 50px 0;
+    max-width: 1400px; /* 더 넓게 써서 사진을 키움 */
+    padding: 60px 0;
 }
 
-/* PC 가로 배치 레이아웃 */
 .section-group {
     display: flex; 
     gap: 40px; 
-    margin-bottom: 60px;
+    margin-bottom: 80px;
     width: 100%;
 }
 
-.section-group section {
+/* ★ 섹션 내부 완벽 중앙 정렬 ★ */
+section {
     flex: 1; 
     background: #fff;
-    padding: 35px;
-    border-radius: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    padding: 50px 30px;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     display: flex;
     flex-direction: column;
-    align-items: center; /* 내부 내용 중앙 정렬 */
+    align-items: center;    /* 가로 중앙 */
+    justify-content: center; /* 세로 중앙 */
 }
 
-/* 구역 제목 중앙 정렬 */
 h2 { 
-    text-align: center;
-    margin-bottom: 35px; 
-    font-size: 1.6rem;
+    margin-bottom: 45px; 
+    font-size: 1.8rem;
     font-weight: 700;
-    width: 100%;
     display: flex;
     justify-content: center;
-    gap: 10px;
+    align-items: center;
+    gap: 12px;
 }
 
-/* 사진 갤러리 격자 및 중앙 정렬 */
+/* 3. 갤러리 사진 격자 */
 .gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* 사진 크기 키움 */
-    gap: 25px;
+    /* 사진을 더 크게 보여주기 위해 최소 너비를 300px로 상향 */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 30px;
     justify-content: center; 
     justify-items: center; 
     width: 100%;
 }
 
-/* 사진 카드 스타일 */
 .card {
     width: 100%;
-    max-width: 350px; /* 최대 크기 확장 */
+    max-width: 450px; /* 카드 최대 크기 확대 */
     cursor: pointer;
-    transition: 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .card img { 
     width: 100%; 
     height: auto; 
-    max-height: 450px; 
+    max-height: 550px; 
     object-fit: contain; 
     border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
 }
 
-.card:hover { transform: translateY(-10px); }
+.card:hover { transform: scale(1.05); }
 
-/* 하단 정보 */
-footer { padding: 60px; color: #888; text-align: center; }
-
-/* 휴대폰용 세로 배치 */
-@media (max-width: 950px) {
-    .section-group { flex-direction: column; }
-    h1 { font-size: 2rem; }
-}
-
-/* 크게 보기(모달) 디자인 */
+/* 4. 크게 보기 모달(Modal) 창 */
 .modal {
-    display: none; 
+    display: none; /* 평소엔 숨김 */
     position: fixed; 
-    z-index: 9999; 
-    left: 0; top: 0; width: 100%; height: 100%; 
-    background-color: rgba(0,0,0,0.9); 
+    z-index: 10000; 
+    left: 0; top: 0; 
+    width: 100%; height: 100%; 
+    background-color: rgba(0,0,0,0.9); /* 배경 어둡게 */
+    cursor: pointer; /* 클릭하면 닫힌다는 느낌을 주기 위해 */
 }
 
 .modal-content {
     margin: auto;
     display: block;
-    max-width: 90%;
-    max-height: 85%;
+    max-width: 95%;
+    max-height: 90%;
     position: relative;
     top: 50%;
     transform: translateY(-50%);
-    border: 3px solid #fff;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 30px rgba(255,255,255,0.2);
 }
 
 .close {
     position: absolute;
-    top: 30px; right: 40px;
-    color: #fff; font-size: 50px; font-weight: bold; cursor: pointer;
+    top: 20px; right: 40px;
+    color: #fff; font-size: 60px; font-weight: bold;
+}
+
+footer { padding: 80px; color: #888; text-align: center; }
+
+/* 모바일 대응 */
+@media (max-width: 950px) {
+    .section-group { flex-direction: column; }
+    h1 { font-size: 2.2rem; }
+    .main-subtitle { font-size: 1.5rem; padding: 10px 20px; }
 }
