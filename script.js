@@ -1,4 +1,4 @@
-// 작가님 아이디와 저장소 이름입니다.
+// 작가님 아이디와 저장소 확인
 const USER_ID = "mumu-web-app"; 
 const REPO_NAME = "my-gallery"; 
 
@@ -9,36 +9,46 @@ const CATEGORIES = [
     { path: "images/lesson/wood", target: "gallery-lesson-wood" }
 ];
 
+// 크게 보기 관련 요소
+const modal = document.getElementById("photoModal");
+const modalImg = document.getElementById("modalImg");
+const closeBtn = document.getElementsByClassName("close")[0];
+
 async function loadGallery() {
     for (const cat of CATEGORIES) {
         const box = document.getElementById(cat.target);
         if (!box) continue;
 
         try {
-            // GitHub 폴더를 뒤져서 사진 목록을 가져옵니다.
             const response = await fetch(`https://api.github.com/repos/${USER_ID}/${REPO_NAME}/contents/${cat.path}`);
             const files = await response.json();
 
-            box.innerHTML = ""; 
-
-            if (!Array.isArray(files) || files.length === 0) {
-                box.innerHTML = "<p>사진을 기다리고 있어요!</p>";
-                continue;
-            }
+            if (!Array.isArray(files) || files.length === 0) continue;
 
             files.forEach(file => {
-                // .gitkeep 파일은 무시하고 진짜 이미지 파일만 보여줍니다.
                 if (file.name.match(/\.(jpg|jpeg|png|gif)$/i)) {
-                    box.innerHTML += `
-                        <div class="card">
-                            <img src="${file.download_url}" alt="작품">
-                        </div>`;
+                    const card = document.createElement("div");
+                    card.className = "card";
+                    
+                    const img = document.createElement("img");
+                    img.src = file.download_url;
+                    
+                    // ★ 클릭 시 크게 보기 이벤트 ★
+                    img.onclick = function() {
+                        modal.style.display = "block";
+                        modalImg.src = this.src;
+                    }
+                    
+                    card.appendChild(img);
+                    box.appendChild(card);
                 }
             });
-        } catch (e) {
-            console.log("로딩 중...");
-        }
+        } catch (e) { console.log("로딩 오류"); }
     }
 }
+
+// 닫기 기능
+closeBtn.onclick = () => modal.style.display = "none";
+window.onclick = (e) => { if (e.target == modal) modal.style.display = "none"; }
 
 window.onload = loadGallery;
