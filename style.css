@@ -1,102 +1,123 @@
-/* 전체 배경 및 폰트 */
+/* 전체 배경: 은은한 한지 색상과 명조체 */
 body { 
-    font-family: 'Noto Sans KR', sans-serif; 
-    background: #f0f2f5; 
+    font-family: 'Nanum Myeongjo', serif; 
+    background-color: #f1eadd; 
     margin: 0; 
     padding: 0; 
     display: flex;
     flex-direction: column;
     align-items: center; 
+    color: #333;
 }
 
-/* 제목 부분 */
 header { 
     text-align: center; 
-    padding: 60px 20px; 
+    padding: 70px 20px; 
     width: 100%;
-    background: white;
-    border-bottom: 1px solid #ddd;
+    background: rgba(255, 255, 255, 0.2); /* 한지색이 비치도록 살짝 투명하게 */
+    border-bottom: 1px solid #d3cabd;
 }
-h1 { font-size: 2.4rem; letter-spacing: 6px; margin: 0; color: #111; }
-header p { color: #666; margin-top: 10px; font-weight: 300; }
 
-/* 메인 영역 중앙 배치 */
+h1 { font-size: 2.8rem; letter-spacing: 8px; margin: 0; color: #111; font-weight: 800; }
+.subtitle { font-size: 1.3rem; color: #444; margin-top: 15px; font-weight: 700; letter-spacing: 2px; }
+
 main { 
     width: 95%; 
-    max-width: 1200px; 
-    padding: 40px 0;
+    max-width: 1300px; 
+    padding: 50px 0;
 }
 
-/* PC에서 가로로 2칸 나누기 */
+/* PC 가로 배치 레이아웃 */
 .section-group {
     display: flex; 
-    gap: 30px; 
-    margin-bottom: 50px;
+    gap: 40px; 
+    margin-bottom: 60px;
     width: 100%;
 }
 
 .section-group section {
     flex: 1; 
-    background: white;
-    padding: 25px;
+    background: #fff;
+    padding: 35px;
     border-radius: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     display: flex;
     flex-direction: column;
+    align-items: center; /* 내부 내용 중앙 정렬 */
 }
 
+/* 구역 제목 중앙 정렬 */
 h2 { 
-    border-left: 6px solid #222; 
-    padding-left: 15px; 
-    margin-bottom: 30px; 
-    font-size: 1.4rem;
+    text-align: center;
+    margin-bottom: 35px; 
+    font-size: 1.6rem;
+    font-weight: 700;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
 
-/* ★ 사진들을 구역 중앙으로 모으는 설정 ★ */
+/* 사진 갤러리 격자 및 중앙 정렬 */
 .gallery {
     display: grid;
-    /* 사진 너비를 200px~300px 사이로 유연하게 조절하되 중앙 정렬 */
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-    gap: 20px;
-    justify-content: center; /* 가로 중앙 정렬 */
-    justify-items: center;   /* 개별 카드 중앙 정렬 */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* 사진 크기 키움 */
+    gap: 25px;
+    justify-content: center; 
+    justify-items: center; 
     width: 100%;
 }
 
-/* 사진 카드 디자인 */
+/* 사진 카드 스타일 */
 .card {
     width: 100%;
-    max-width: 280px; /* 카드가 너무 커지는 것 방지 */
-    background: #fff;
-    border-radius: 12px;
-    overflow: hidden;
+    max-width: 350px; /* 최대 크기 확장 */
+    cursor: pointer;
     transition: 0.3s ease;
 }
 
 .card img { 
     width: 100%; 
     height: auto; 
-    max-height: 350px; 
-    object-fit: contain; /* 사진이 잘리지 않고 전체가 다 보이게 */
+    max-height: 450px; 
+    object-fit: contain; 
     border-radius: 10px;
-    display: block;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
 }
 
-/* 마우스 올렸을 때 효과 */
-.card:hover { transform: translateY(-5px); }
+.card:hover { transform: translateY(-10px); }
 
 /* 하단 정보 */
-footer { padding: 40px; color: #999; font-size: 0.9rem; }
+footer { padding: 60px; color: #888; text-align: center; }
 
-/* ★ 휴대폰/태블릿 대응 ★ */
+/* 휴대폰용 세로 배치 */
 @media (max-width: 950px) {
-    .section-group {
-        flex-direction: column; /* 가로에서 세로로 */
-        gap: 30px;
-    }
-    h1 { font-size: 1.8rem; }
-    .gallery {
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    }
+    .section-group { flex-direction: column; }
+    h1 { font-size: 2rem; }
+}
+
+/* 크게 보기(모달) 디자인 */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 9999; 
+    left: 0; top: 0; width: 100%; height: 100%; 
+    background-color: rgba(0,0,0,0.9); 
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 85%;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 3px solid #fff;
+}
+
+.close {
+    position: absolute;
+    top: 30px; right: 40px;
+    color: #fff; font-size: 50px; font-weight: bold; cursor: pointer;
 }
